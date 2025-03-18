@@ -1,10 +1,14 @@
 <template>
   <div class="ti-pt48 ti-pl48 ti-pr48">
-    <div class="markdown-body">
-      <h1 class="flex-center">
+    <div class="w1000 !mx-auto markdown-body">
+      <h1 class="ti-f-r ti-f-box-center">
         组件特性列表
-        <span class="component-count" :title="`${componentCount} components`">{{ componentCount }}</span>
-        <span class="component-count" :title="`${featureCount} features`">{{ featureCount }}</span>
+        <tiny-tag size="small" type="success" :title="`${componentCount} components`" class="ml8">{{
+          componentCount
+        }}</tiny-tag>
+        <tiny-tag size="small" type="success" :title="`${featureCount} features`" class="ml8">{{
+          featureCount
+        }}</tiny-tag>
       </h1>
 
       <p>TinyVue 组件库包含 {{ componentCount }} 个灵活、易用、功能强大的组件。</p>
@@ -15,9 +19,34 @@
         v-for="(component, componentIndex) of isCloud ? components.filter((item) => item.config.cloud) : components"
         :key="component.name"
       >
-        <h3 class="flex-center">
+        <h3 class="ti-f-r ti-f-box-center">
           {{ componentIndex + 1 }}. {{ toUpperCamelCase(component.name) }}
-          <span class="component-count mr-xs">{{ component.config.features?.length || 0 }}</span>
+          <tiny-tag
+            size="small"
+            type="success"
+            class="ml8"
+            :title="`${component.config.features?.length || 0} features`"
+          >
+            {{ component.config.features?.length || 0 }}
+          </tiny-tag>
+          <tiny-popover trigger="hover" placement="top">
+            <p>
+              {{
+                component.config.features?.every((feature) => feature.cloud.value)
+                  ? '全部特性在规范内'
+                  : '部分特性在规范内'
+              }}
+            </p>
+            <template #reference>
+              <i
+                :class="[
+                  component.config.features?.every((feature) => feature.cloud.value) ? 'i-ti-cloud-full' : 'i-ti-cloud',
+                  'ml4'
+                ]"
+                v-if="component.config.cloud"
+              ></i>
+            </template>
+          </tiny-popover>
         </h3>
         <tiny-layout v-if="component.config.features" :cols="24">
           <tiny-row
@@ -26,8 +55,40 @@
             :style="{ marginTop: index === 0 ? '20px' : '0' }"
             :gutter="8"
           >
-            <tiny-col v-for="feature of groupFeature" :key="feature.id" :span="8">
+            <tiny-col v-for="feature of groupFeature" :key="feature.id" :span="8" class="ti-f-r ti-f-box-center">
               {{ feature.name }}
+              <tiny-popover trigger="hover" placement="top">
+                <p>{{ feature.description }}</p>
+                <div>
+                  Demos:
+                  <span v-for="(demo, demoIndex) of feature.demos" :key="demoIndex">
+                    <a
+                      :href="origin + '/tiny-vue/zh-CN/os-theme/components/' + component.name + '#' + demo"
+                      target="'_blank'"
+                      >{{ demo }}</a
+                    ><tiny-divider direction="vertical" v-if="demoIndex !== feature.demos.length - 1"></tiny-divider>
+                  </span>
+                </div>
+                <div>
+                  APIs:
+                  <span v-for="(api, apiIndex) of feature.apis" :key="apiIndex">
+                    <a
+                      :href="origin + '/tiny-vue/zh-CN/os-theme/components/' + component.name + '#api'"
+                      target="'_blank'"
+                      >{{ api }}</a
+                    ><tiny-divider direction="vertical" v-if="apiIndex !== feature.apis.length - 1"></tiny-divider>
+                  </span>
+                </div>
+                <template #reference>
+                  <tiny-icon-info-circle class="ti-ml4"></tiny-icon-info-circle>
+                </template>
+              </tiny-popover>
+              <tiny-popover trigger="hover" placement="top" v-if="feature.cloud.value">
+                <p>{{ feature.cloud.remark || '规范内的特性' }}</p>
+                <template #reference>
+                  <i :class="[feature.cloud.remark ? 'i-ti-cloud' : 'i-ti-cloud-full', 'ml4']"></i>
+                </template>
+              </tiny-popover>
             </tiny-col>
           </tiny-row>
         </tiny-layout>
@@ -36,9 +97,14 @@
   </div>
 </template>
 
-<script setup>
-import { TinyLayout, TinyRow, TinyCol, TinySwitch } from '@opentiny/vue'
+<script setup lang="ts">
+import { TinyLayout, TinyRow, TinyCol, TinySwitch, TinyPopover, TinyDivider, TinyTag } from '@opentiny/vue'
+import { IconInfoCircle } from '@opentiny/vue-icon'
 import { onMounted, ref } from 'vue'
+
+const TinyIconInfoCircle = IconInfoCircle()
+
+const origin = ref('')
 
 const componentCount = ref(0)
 const featureCount = ref(0)
@@ -46,6 +112,8 @@ const components = ref([])
 const isCloud = ref(false)
 
 onMounted(async () => {
+  origin.value = location.origin
+
   const componentDocs = import.meta.glob(`@demos/app/**/webdoc/*.js`)
 
   for (const item in componentDocs) {
@@ -84,33 +152,3 @@ const toUpperCamelCase = (str) =>
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join('')
 </script>
-
-<style scoped lang="less">
-.flex-center {
-  display: flex;
-  align-items: center;
-}
-
-.component-count {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 8px;
-  padding: 0 2px;
-  min-width: 16px;
-  height: 16px;
-  line-height: 16px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: normal;
-  border: 1px solid #dfe1e6;
-  border-radius: 4px;
-  background-color: #f5f5f5;
-  color: #cfd0d3;
-}
-
-.markdown-body {
-  width: 1000px;
-  margin: 0 auto;
-}
-</style>
