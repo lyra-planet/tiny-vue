@@ -17,7 +17,7 @@ import { iconClose } from '@opentiny/vue-icon'
 import { appData } from './tools'
 import useTheme from './tools/useTheme'
 import { useNextClient } from '@opentiny/next-vue'
-import { globalConversation } from './views/components-doc/composition/utils'
+import { globalConversation, $session } from './composable/utils'
 
 export default defineComponent({
   name: 'AppVue',
@@ -33,13 +33,14 @@ export default defineComponent({
 
     const { sessionId } = useNextClient({
       clientInfo: { name: 'tiny-vue-website', version: '1.0.0' },
-      proxyOptions: { url: 'https://39.108.160.245/sse', token: '' }
+      proxyOptions: { url: 'https://agent.icjs.ink/sse', token: '', sessionId: $session.sessionId }
     })
 
     watch(
       () => sessionId.value,
       (newVal) => {
         if (newVal) {
+          $session.sessionId = newVal
           globalConversation.sessionId = newVal
         }
       }
