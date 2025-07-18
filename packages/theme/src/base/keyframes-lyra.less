@@ -1,0 +1,518 @@
+@import '../custom.less';
+@import './vars.less';
+
+
+/* ===========================
+   通用旋转 + 进度加载动画
+   来源: chart-core, tree
+=========================== */
+@keyframes loading-rotate {
+    // chart-core:loading-rotate,tree:loading-rotate
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-dash {
+    // chart-core:loading-dash,tree:loading-dash
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -40px;
+  }
+
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -120px;
+  }
+}
+
+/* ===========================
+   淡入淡出动画 (透明度)
+   来源: dialog-box, popup, drawer
+=========================== */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ===========================
+   淡入淡出动画 + 向上位移
+   来源: dialog-box, image
+=========================== */
+@keyframes fade-in-up {
+  0% {
+    transform: translate3d(0, -20px, 0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out-up {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate3d(0, -20px, 0);
+    opacity: 0;
+  }
+}
+
+/* ===========================
+   弹出缩放动画
+   来源: dialog-box
+=========================== */
+@keyframes enlarge-in {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ===========================
+   缩放弹入动画（统一 bounce-in / scale-in）
+   来源: transition-icon
+=========================== */
+@keyframes scale-bounce-in {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ===========================
+   抽屉/对话框 滑动方向动画
+   来源: dialog-box, drawer
+=========================== */
+@keyframes slide-left-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateX(-50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-left-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateX(-50%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-right-in {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateX(50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-right-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateX(50%);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes slide-top-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateY(-50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slide-top-out {
+  0% {
+    opacity: 0;
+    transform: translateY(0%);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateY(-50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes slide-bottom-in {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateY(50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slide-bottom-out {
+  0% {
+    opacity: 0;
+    transform: translateY(0%);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translateY(50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(100%);
+  }
+}
+
+/* ===========================
+   Tab切换动画 (保留 enter/leave)
+   来源: tabs
+=========================== */
+@keyframes tab-slide-right-in {
+  0% {
+    opacity: 0;
+    transform-origin: 0 0;
+    transform: translateX(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes tab-slide-right-out {
+  0% {
+    transform-origin: 0 0;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes tab-slide-left-in {
+  0% {
+    opacity: 0;
+    transform-origin: 0 0;
+    transform: translateX(-100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes tab-slide-left-out {
+  0% {
+    transform-origin: 0 0;
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+/* ===========================
+   箭头移动动画
+   来源: fall-menu, carousel-arrow
+=========================== */
+@keyframes arrow-left-pulse {
+  0% {
+    left: -17px;
+  }
+
+  50% {
+    left: -13px;
+  }
+
+  100% {
+    left: -17px;
+  }
+}
+
+@keyframes arrow-right-pulse {
+  0% {
+    right: -17px;
+  }
+
+  50% {
+    right: -13px;
+  }
+
+  100% {
+    right: -17px;
+  }
+}
+
+@keyframes arrow-left-in {
+  0% {
+    opacity: 0;
+    left: 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-50%);
+    left: 16px;
+  }
+}
+
+@keyframes arrow-right-in {
+  0% {
+    opacity: 0;
+    right: 0;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(-50%);
+    right: 16px;
+  }
+}
+
+/* ===========================
+   滚动文字动画
+   来源: scroll-text
+=========================== */
+@keyframes scroll-left {
+  0% {
+    transform: translateX(300px);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(300px);
+  }
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes scroll-left-adapt {
+  0% {
+    transform: translateX(100%);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes scroll-right-adapt {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ===========================
+   骨架屏、加载等
+   来源: skeleton-item, grid-loading
+=========================== */
+@keyframes skeleton-loading {
+  to {
+    background-position-x: -20%;
+  }
+}
+
+@keyframes grid-loading-fade {
+  0% {
+    opacity: 10;
+  }
+
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: -1px -1px;
+  }
+
+  100% {
+    background-position: -12px -12px;
+  }
+}
+
+/* ===========================
+   进度条流动背景
+   来源: progress
+=========================== */
+@keyframes progress {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 32px 0;
+  }
+}
+
+/* ===========================
+   timepicker 面板进入动画
+   来源: transition-timepicker
+=========================== */
+@keyframes timepicker-fade-in {
+  0% {
+    transform: translateY(-200px);
+    z-index: -999;
+  }
+
+  100% {
+    transform: translateY(0);
+    z-index: 0;
+  }
+}
+
+@keyframes timepicker-fade-up {
+  0% {
+    transform: translateY(200px);
+    z-index: -999;
+  }
+
+  100% {
+    transform: translateY(0);
+    z-index: 0;
+  }
+}
