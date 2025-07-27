@@ -1,0 +1,85 @@
+/**
+* Copyright (c) 2022 - present TinyVue Authors.
+* Copyright (c) 2022 - present Huawei Cloud Computing Technologies Co., Ltd.
+*
+* Use of this source code is governed by an MIT-style license.
+*
+* THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+* BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+* A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+*
+*/
+
+@import '../custom.less';
+@import './vars.less';
+
+@hrapprover-prefix-cls: ~'@{css-prefix}hrapprover';
+@input-prefix-cls: ~'@{css-prefix}input';
+
+.@{hrapprover-prefix-cls} {
+  .inject-Hrapprover-vars();
+
+  & &__list {
+    height: 180px;
+    margin-top: 10px;
+    overflow: auto;
+  }
+
+  & &__error {
+    border: solid 1px var(--tv-Hrapprover-error-border-color);
+  }
+
+  table {
+    tbody {
+      tr {
+        color: var(--tv-Hrapprover-table-text-color);
+        background: var(--tv-Hrapprover-tr-bg-color);
+
+        &:hover {
+          background: var(--tv-Hrapprover-tr-hover-bg-color);
+        }
+
+        &:nth-child(odd) {
+          background: var(--tv-Hrapprover-tr-odd-bg-color);
+        }
+      }
+    }
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: inherit;
+    }
+
+    th {
+      border-left: none;
+      padding: 2px 0 2px 8px;
+      height: var(--tv-Hrapprover-th-height);
+    }
+
+    td {
+      padding: 2px 0 2px 8px;
+      height: var(--tv-Hrapprover-th-height);
+      font-size: var(--tv-Hrapprover-table-font-size);
+    }
+
+    thead {
+      border-bottom: 1px solid var(--tv-Hrapprover-thead-border-color);
+      text-align: left;
+      background: var(--tv-Hrapprover-thead-bg-color);
+      color: var(--tv-Hrapprover-table-text-color);
+
+      th {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: var(--tv-Hrapprover-table-font-size);
+        color: var(--tv-Hrapprover-table-text-color);
+      }
+    }
+  }
+
+  .@{input-prefix-cls}__suffix .@{input-prefix-cls}__icon {
+    vertical-align: middle;
+  }
+}

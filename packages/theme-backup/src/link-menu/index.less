@@ -1,0 +1,183 @@
+/**
+* Copyright (c) 2022 - present TinyVue Authors.
+* Copyright (c) 2022 - present Huawei Cloud Computing Technologies Co., Ltd.
+*
+* Use of this source code is governed by an MIT-style license.
+*
+* THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+* BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+* A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+*
+*/
+
+@import '../mixins/common.less';
+@import '../custom.less';
+@import './vars.less';
+
+@link-menu-prefix-cls: ~'@{css-prefix}link-menu';
+@input-prefix-cls: ~'@{css-prefix}input';
+@button-prefix-cls: ~'@{css-prefix}button';
+@tree-prefix-cls: ~'@{css-prefix}tree';
+@tree-node-prefix-cls: ~'@{css-prefix}tree-node';
+@checkbox-prefix-cls: ~'@{css-prefix}checkbox';
+@svg-prefix-cls: ~'@{css-prefix}svg';
+
+.@{link-menu-prefix-cls} {
+  .inject-LinkMenu-vars();
+
+  &__nav &__nav-item {
+    color: var(--tv-LinkMenu-nav-item-text-color);
+    font-size: var(--tv-LinkMenu-item-font-size);
+    border-right: 1px solid var(--tv-LinkMenu-nav-item-border-color);
+    padding: 0 8px;
+    line-height: 1;
+    display: inline-block;
+    background: 0;
+    white-space: nowrap;
+    text-decoration: none;
+    outline: 0;
+    text-align: center;
+    cursor: pointer;
+
+    .@{svg-prefix-cls} {
+      fill: var(--tv-LinkMenu-nav-item-text-color);
+      margin-right: 4px;
+    }
+
+    span {
+      line-height: 1;
+      vertical-align: middle;
+    }
+  }
+
+  .tiny-dialog-box__wrapper {
+    .tiny-dialog-box__body {
+      .tiny-link-menu__filert {
+        .tiny-input {
+          width: 100%;
+        }
+      }
+
+      .tiny-tree {
+        padding: 16px 8px;
+      }
+    }
+  }
+
+  &__nav {
+    color: var(--tv-LinkMenu-btn-text-color);
+    background: var(--tv-LinkMenu-btn-bg-color);
+    padding: 0 8px;
+    line-height: 1;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+
+    .@{svg-prefix-cls} {
+      fill: var(--tv-LinkMenu-nav-item-text-color);
+      font-size: var(--tv-LinkMenu-icon-size);
+    }
+  }
+
+  &__btn {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--tv-LinkMenu-btn-border-radius);
+    border: 1px solid var(--tv-LinkMenu-btn-border-color);
+    background: var(--tv-LinkMenu-btn-bg-color);
+    .@{svg-prefix-cls} {
+      fill: var(--tv-LinkMenu-nav-item-text-color);
+      font-size: var(--tv-LinkMenu-btn-size);
+    }
+  }
+
+  .@{input-prefix-cls} {
+    width: 270px;
+    margin-bottom: 5px;
+
+    .@{input-prefix-cls}__inner {
+      height: var(--tv-LinkMenu-input-height);
+      line-height: var(--tv-LinkMenu-input-height);
+      font-size: var(--tv-LinkMenu-input-font-size);
+      color: var(--tv-LinkMenu-input-text-color);
+      background: var(--tv-LinkMenu-btn-bg-color);
+      border: 1px solid var(--tv-LinkMenu-input-border-color);
+      border-radius: var(--tv-LinkMenu-input-border-radius);
+      padding: 0 8px;
+      display: block;
+      white-space: nowrap;
+      user-select: auto;
+      transition: border 0.3s;
+      outline: 0;
+      box-sizing: border-box;
+    }
+  }
+
+  .@{tree-prefix-cls} {
+    .@{tree-node-prefix-cls} {
+      .@{checkbox-prefix-cls} {
+        transform: translateY(1px);
+      }
+
+      .tree-node-body {
+        display: block;
+        text-decoration: none;
+
+        & > .@{svg-prefix-cls} {
+          margin-left: 4px;
+        }
+      }
+
+      .tree-node-name {
+        color: var(--tv-LinkMenu-tree-node-text-color);
+        font-size: var(--tv-LinkMenu-input-font-size);
+        border-radius: var(--tv-LinkMenu-input-border-radius);
+        padding-left: 4px;
+        vertical-align: middle;
+      }
+
+      &.is-focusable {
+        .tree-node-name {
+          color: var(--tv-LinkMenu-input-text-color);
+        }
+      }
+    }
+
+    &.@{link-menu-prefix-cls}__overflow {
+      .tiny-tree-node__label {
+        width: 100%;
+
+        .tree-node {
+          width: calc(100% - 36px);
+        }
+      }
+
+      .tree-node-name {
+        width: 100%;
+        display: inline-block;
+        .text-overflow();
+      }
+    }
+
+    &.@{link-menu-prefix-cls}__wrap {
+      .tree-node {
+        width: calc(100% - 36px);
+      }
+
+      .tree-node-icon {
+        svg.tiny-svg {
+          width: var(--tv-LinkMenu-icon-size);
+          height: var(--tv-LinkMenu-icon-size);
+        }
+      }
+
+      .tree-node-name {
+        width: 100%;
+        display: inline-block;
+        white-space: normal;
+        line-height: normal;
+        word-break: break-word;
+      }
+    }
+  }
+}

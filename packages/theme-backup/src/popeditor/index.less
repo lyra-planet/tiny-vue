@@ -1,0 +1,257 @@
+/**
+* Copyright (c) 2022 - present TinyVue Authors.
+* Copyright (c) 2022 - present Huawei Cloud Computing Technologies Co., Ltd.
+*
+* Use of this source code is governed by an MIT-style license.
+*
+* THE OPEN SOURCE SOFTWARE IN THIS PRODUCT IS DISTRIBUTED IN THE HOPE THAT IT WILL BE USEFUL,
+* BUT WITHOUT ANY WARRANTY, WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR FITNESS FOR
+* A PARTICULAR PURPOSE. SEE THE APPLICABLE LICENSES FOR MORE DETAILS.
+*
+*/
+
+@import '../custom.less';
+@import './vars.less';
+
+@popeditor-prefix-cls: ~'@{css-prefix}popeditor';
+@input-prefix-cls: ~'@{css-prefix}input';
+@pager-prefix-cls: ~'@{css-prefix}pager';
+@dialog-box-prefix-cls: ~'@{css-prefix}dialog-box';
+@svg-prefix-cls: ~'@{css-prefix}svg';
+
+.@{popeditor-prefix-cls} {
+  .inject-Popeditor-vars();
+
+  .@{input-prefix-cls} {
+    &.@{popeditor-prefix-cls}-readonly .@{input-prefix-cls}__inner {
+      padding-left: 8px;
+
+      &:hover,
+      &:focus,
+      &:active {
+        cursor: pointer;
+      }
+    }
+
+    &.is-disabled {
+      .@{input-prefix-cls}__inner {
+        &:hover,
+        &:focus,
+        &:active {
+          cursor: not-allowed;
+
+          & + .@{input-prefix-cls}__suffix {
+            .@{svg-prefix-cls}__popeditor {
+              fill: var(--tv-Popeditor-icon-color-disabled);
+            }
+          }
+        }
+      }
+
+      .@{input-prefix-cls}__suffix {
+        cursor: not-allowed;
+
+        .@{svg-prefix-cls}__popeditor,
+        .@{svg-prefix-cls}__popeditor:hover {
+          fill: var(--tv-Popeditor-icon-color-disabled);
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    &.suggest {
+      .@{input-prefix-cls}__inner {
+        padding-right: 50px;
+      }
+
+      .@{svg-prefix-cls}__popeditor {
+        &.@{css-prefix}chevron {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .@{input-prefix-cls}__inner {
+      &:hover,
+      &:focus,
+      &:active {
+        & + .@{input-prefix-cls}__suffix {
+          cursor: not-allowed;
+
+          .@{svg-prefix-cls}__popeditor {
+            fill: var(--tv-Popeditor-icon-color-hover);
+          }
+        }
+      }
+    }
+
+    .@{input-prefix-cls}__suffix {
+      cursor: pointer;
+
+      .@{svg-prefix-cls}__popeditor {
+        height: var(--tv-Popeditor-icon-height);
+        line-height: var(--tv-Popeditor-icon-line-height);
+        font-size: var(--tv-Popeditor-icon-font-size);
+        fill: var(--tv-Popeditor-icon-color);
+        cursor: pointer;
+
+        &:hover {
+          fill: var(--tv-Popeditor-icon-color-hover);
+        }
+      }
+    }
+  }
+
+  &-top {
+    .@{popeditor-prefix-cls}__search-lists {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+
+      .@{input-prefix-cls} {
+        position: relative;
+        font-size: var(--tv-Popeditor-font-size);
+        display: inline-block;
+        width: 100%;
+      }
+
+      .@{popeditor-prefix-cls}__search-item {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-bottom: 24px;
+
+        .@{popeditor-prefix-cls}__search-label {
+          text-align: left;
+          padding-right: 8px;
+          font-size: var(--tv-Popeditor-font-size);
+          width: var(--tv-Popeditor-search-item-width);
+        }
+
+        &:nth-child(2n + 1) {
+          padding-right: var(--tv-Popeditor-search-item-padding-right);
+        }
+
+        &:nth-child(2n) {
+          padding-left: var(--tv-Popeditor-search-item-padding-left);
+        }
+      }
+
+      .@{popeditor-prefix-cls}__search-input {
+        flex: 1;
+      }
+    }
+
+    .@{popeditor-prefix-cls}__search-footer {
+      width: 100%;
+      text-align: right;
+      margin: 0 auto 24px;
+    }
+  }
+
+  &-body {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    &__left {
+      padding: 0 16px 0 0;
+    }
+
+    &__right {
+      padding: 0 0 0 16px;
+    }
+
+    &__left,
+    &__right {
+      width: 50%;
+      vertical-align: top;
+
+      &.@{popeditor-prefix-cls}-body__radio {
+        width: 100%;
+      }
+    }
+
+    .@{popeditor-prefix-cls}__tabs {
+      .@{popeditor-prefix-cls}__tabs-head {
+        white-space: nowrap;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: var(--tv-Popeditor-tabs-li-height);
+        width: 100%;
+        position: relative;
+
+        ul {
+          height: var(--tv-Popeditor-tabs-li-height);
+          border-bottom: 1px solid transparent;
+          box-sizing: border-box;
+
+          li {
+            float: left;
+            margin-right: -1px;
+            cursor: pointer;
+            padding: 0 32px 0 0;
+            color: var(--tv-Popeditor-tabs-text-color);
+            min-width: 90px;
+            height: var(--tv-Popeditor-tabs-li-height);
+            line-height: var(--tv-Popeditor-tabs-li-line-height);
+            font-size: var(--tv-Popeditor-tabs-font-size);
+
+            &.@{popeditor-prefix-cls}__tabs-selected {
+              color: var(--tv-Popeditor-tabs-selected-text-color);
+              border-bottom: 3px solid var(--tv-Popeditor-tabs-selected-text-color);
+              font-weight: var(--tv-Popeditor-tabs-selected-font-weight);
+            }
+          }
+        }
+      }
+
+      .@{popeditor-prefix-cls}__tabs-body {
+        .tabs-body-item {
+          padding: 16px 0 0;
+
+          .@{pager-prefix-cls} {
+            padding-top: 12px;
+            padding-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &__tree {
+    .@{popeditor-prefix-cls}__filter-input {
+      margin-bottom: 20px;
+
+      .tiny-input__inner {
+        padding-left: 28px;
+        padding-right: 8px;
+      }
+
+      .tiny-input__prefix {
+        visibility: visible;
+      }
+
+      .tiny-input__suffix {
+        visibility: hidden;
+      }
+    }
+
+    &-wrapper {
+      overflow: auto;
+    }
+  }
+}
+
+.@{popeditor-prefix-cls}__dialog-box {
+  .inject-Popeditor-vars();
+
+  .@{dialog-box-prefix-cls}__footer {
+    text-align: right;
+    padding-top: 24px;
+  }
+}
